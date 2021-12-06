@@ -30,20 +30,18 @@ class Board
 	
 end
 
-first_board = nil
-last_board = nil
+won_boards = Array(Board).new
 
 until boards.all?(&.won?)
 	number = called.shift
 	boards.dup.each do |board|
 		board.add_called(number)
 		if board.won?
-			first_board = board if first_board.nil?
+			won_boards << board
 			boards.delete(board)
 		end
-		last_board = boards.first if boards.one?
 	end
 end
 
-puts "Part 1 answer: #{first_board.not_nil!.score}"
-puts "Part 2 answer: #{last_board.not_nil!.score}"
+puts "Part 1 answer: #{won_boards.first.score}"
+puts "Part 2 answer: #{won_boards.last.score}"
